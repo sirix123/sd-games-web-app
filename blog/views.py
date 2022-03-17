@@ -1,28 +1,27 @@
 import re
-from database import database, create_entry, check_users, retrieve_entries
+from blog.database import create_entry, check_users, retrieve_entries
+from blog import app
 from flask import Blueprint, render_template, request, session
 from functools import wraps
 
-views = Blueprint("views", __name__, static_folder = "static", template_folder = "templates")
-
-@views.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(e):
     return render_template("index.html")
 
-@views.route('/index')
-@views.route('/')
+@app.route('/index')
+@app.route('/')
 def home():
     return render_template("index.html")
 
-@views.route('/contact')
+@app.route('/contact')
 def contact():
     return render_template("contact.html")
 
-@views.route('/about')
+@app.route('/about')
 def about():
     return render_template("about.html")
 
-@views.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         username = request.form['username']
@@ -33,7 +32,7 @@ def login():
 
     return render_template("login.html")
 
-@views.route("/blog", methods=["GET"])
+@app.route("/blog", methods=["GET"])
 def blog():
     entry_titles = []
     entries = retrieve_entries()
@@ -59,7 +58,7 @@ def is_logged_in(f):
             return render_template("login.html")
     return wrap
 
-@views.route("/blogcreate", methods=["GET", "POST"])
+@app.route("/blogcreate", methods=["GET", "POST"])
 @is_logged_in
 def blogcreate():   
     if request.method == "POST":

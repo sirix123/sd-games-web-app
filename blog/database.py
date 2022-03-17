@@ -1,9 +1,5 @@
 from flask import Blueprint, render_template, Flask
-from flask_sqlalchemy import SQLAlchemy
-
-database = Blueprint("database", __name__, static_folder = "static", template_folder = "templates")
-app = Flask(__name__)
-db = SQLAlchemy(app)
+from blog import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
