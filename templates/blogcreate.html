@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div class="entries">
+    {% for entry in entries %}
+    <div class="entry-title">
+      {{ entry[0]|safe|truncate(30, true)}}
+      <span class="entry-date">• {{ entry[1] }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <div id="editor-container">
+    <form method="POST">
+      <textarea id="summernote" name="editordata"></textarea>
+      <input type="submit" value="Add Content" />
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,102 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+html {
+  background-color: #18889D
+}
+
+.header-main{
+  padding:  15px;
+  font-size: xx-large;
+  font-weight: 700;
+  background-color: #18889D
+}
+
+.context-box{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  text-align: center; 
+}
+
+#menu-container{
+  padding:  15px;
+}
+
+ol,ul{
+  list-style: none;
+}
+
+#menu{
+  display: flex;
+  margin: 10px;
+  width: 500px;
+}
+
+#menu li{
+  display: block;
+  width: 120px;
+  float: left;
+  margin-left: 2px;
+  border: 1px solid #000;
+}
+
+#menu a{
+  display: block;
+  padding: 3px;
+  text-decoration: none;
+  background-color: #fff;
+  color: #009;
+}
+
+#menu a:hover{
+  background-color: #009;
+  color: #fff;
+}
+
+#main-container{
+  display: flex;
+  column-count: 2;
+  margin: 20px;
+}
+
+.entries{
+  width: 20%;
+  border: 1px solid #000;
+}
+
+#editor-container{
+  width: 80%;
+  border: 1px solid #000;
+}
+
+#blog-container{
+  width: 80%;
+  border: 1px solid #000;
+}
+
+#summernote{
+  height: 800px;
+}
+
+.entry {
+
+}
+
+.entry-title {
+  font-size: 16px;
+}
+
+.entry-date {
+  color: #5C6B70;
+  font-size: 14px;
+  line-height: 150%;
+}
+
+.entry-content {
+  font-size: 14px;
+  line-height: 150%;
+}
