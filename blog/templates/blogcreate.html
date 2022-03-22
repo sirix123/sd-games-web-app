@@ -4,15 +4,15 @@
   <div class="entries">
     {% for entry in entries %}
     <div class="entry-title">
-      {{ entry[0]|safe|truncate(30, true)}}
-      <span class="entry-date">• {{ entry[1] }}</span>
+      <a href="{{ url_for('blogcreate', article_id=entry['article_id']) }}">{{ entry['title'] + " - " + entry['date'] }}</a>
     </div>
     {% endfor %}
   </div>
   <div id="editor-container">
     <form method="POST">
-      <textarea id="summernote" name="editordata"></textarea>
-      <input type="submit" value="Add Content" />
+      <textarea id="summernote" name="editordata">{{ entry['content'] }}</textarea>
+      <input type="submit" class="form-control" value="Create new blog entry" name="add" />
+      <input type="submit" class="form-control" value="Overwrite existing blog entry" name="edit" />
     </form>
   </div>
 {% endblock %}

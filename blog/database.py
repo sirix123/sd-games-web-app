@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, Flask
 from blog import db
+from flask_sqlalchemy import SQLAlchemy
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), unique=True, nullable=False)
 
@@ -10,43 +11,42 @@ class User(db.Model):
         return '<User %r>' % self.username
 
 class Article(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String(50), unique=True, nullable=False)
-    title = db.Column(db.String(50), unique=True, nullable=False)
-    content = db.Column(db.String(5000), unique=True, nullable=False)
+    article_id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.String(50000), nullable=False)
 
     def __repr__(self):
         return '<title %r>' % self.title
 
-def create_entry(content, date):
-    entry = Article(date=date, title='testtitle', content=content )
+def create_entry(date, title, content):
+    entry = Article(date=date, title=title, content=content )
     db.session.add(entry)
     db.session.commit()
-    print(Article.query.all())
+    # print(Article.query.all())
 
-# NEED TO REPLACE THE CONTENT OF THIS WITH ALCHELMY STUFF
+def replace_content_entry(article_id_get, title, content):
+    article = Article.query.filter_by(article_id = article_id_get).first()
+    article.title = title
+    article.content = content
+    db.session.commit()
+
 def retrieve_entries():
-    with sqlite3.connect("data.db") as connection:
-        cursor = connection.cursor()
-        cursor.execute(RETRIEVE_ENTRIES)
-        return cursor.fetchall()
+    return Article.query.all()
 
-# NEED TO REPLACE THE CONTENT OF THIS WITH ALCHELMY STUFF
+def retrieve_entry(article_id_get):
+    article = Article.query.filter_by(article_id = article_id_get).first()
+    if article == None:
+        return None
+    else:
+        return article
+
 def check_users(username,password_candidate):
-    admin_login = User.query.filter_by(username=username).first()
+    admin_login = User.query.filter_by(username = username).first() and User.query.filter_by( password = password_candidate ).first()
+
     if admin_login:
-        print("logged in")
-    # with sqlite3.connect("data.db") as connection:
-    #     cur = connection.cursor()
-    #     cur.execute(("SELECT * FROM users WHERE username = ? AND password = ?"), (username,password_candidate))
-    #     result = cur.fetchall()
-    #     if result:
-    #         return True
-    #     else:
-    #         print("no username or password found")
+        return True
+    else:
+        print("no username or password found")
 
 db.create_all()
-# admin = User(username='sirix123', password='password123')
-# db.session.add(admin)
-# db.session.commit()
-print(User.query.all())

@@ -1,8 +1,10 @@
 import re
-from blog.database import create_entry, check_users, retrieve_entries
+import datetime
 from blog import app
+from blog.database import create_entry, check_users, retrieve_entries, retrieve_entry, replace_content_entry
 from flask import Blueprint, render_template, request, session
 from functools import wraps
+from bs4 import BeautifulSoup
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -34,19 +36,22 @@ def login():
 
 @app.route("/blog", methods=["GET"])
 def blog():
-    entry_titles = []
     entries = retrieve_entries()
-    for i in entries:
-        cleaned_title = cleanhtml(i[0][0:30])
-        entry_titles.append(cleaned_title+" • "+i[1])
+    entry_titles = []
 
-    print(entries[-1][0])
-    return render_template("blog.html", entry_titles=entry_titles, entry_body=entries[-1][0] )
+    blog_to_display = retrieve_entry(request.args.get('article_id'))
+
+    if blog_to_display == None:
+        return render_template("blog.html",entries=entries, entry=entries[-1] )
+
+    return render_template("blog.html",entries=entries, entry=blog_to_display ) 
 
 def cleanhtml(raw_html):
-    cleanr = re.compile('<.*?>')
-    cleantext = re.sub(cleanr, '', raw_html)
-    return cleantext
+    # cleanr = re.compile('<.*?>') 
+    # cleantext = re.sub(cleanr, '', raw_html)
+    # return cleantext
+    soup = BeautifulSoup(raw_html, 'html.parser')
+    return soup.get_text()
 
 # Check if user logged in
 def is_logged_in(f):
@@ -60,11 +65,21 @@ def is_logged_in(f):
 
 @app.route("/blogcreate", methods=["GET", "POST"])
 @is_logged_in
-def blogcreate():   
-    if request.method == "POST":
-        entry_content = request.form.get('editordata')
-        create_entry(entry_content, datetime.datetime.today().strftime("%b %d"))
+def blogcreate():
+    entries = retrieve_entries()
 
-        return render_template("blogcreate.html", entries=retrieve_entries())
+    blog_to_edit = retrieve_entry(request.args.get('article_id'))
+
+    if request.method == "POST":
+        if "add" in request.form:
+            entry_content = request.form.get('editordata')
+            create_entry(datetime.datetime.today().strftime("%Y %b %d"), cleanhtml(entry_content[0:30]), entry_content)
+
+            return render_template("blogcreate.html", entries=retrieve_entries(), entry=blog_to_edit)
+
+        if "edit" in request.form:
+            entry_content = request.form.get('editordata')
+            replace_content_entry(request.args.get('article_id'), cleanhtml(entry_content[0:30]), entry_content)
+            return render_template("blogcreate.html", entries=retrieve_entries(), entry=blog_to_edit)
     else:
-        return render_template("blogcreate.html")
+        return render_template("blogcreate.html", entries=retrieve_entries(), entry=blog_to_edit)

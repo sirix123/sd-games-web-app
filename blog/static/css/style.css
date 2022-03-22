@@ -83,11 +83,14 @@ ol,ul{
 }
 
 .entry {
-
+  overflow: auto;
+  word-wrap: break-word;
 }
 
 .entry-title {
   font-size: 16px;
+  overflow: auto;
+  word-wrap: break-word;
 }
 
 .entry-date {
@@ -99,4 +102,16 @@ ol,ul{
 .entry-content {
   font-size: 14px;
   line-height: 150%;
+}
+
+input[type="submit"] {
+  background: none;
+  border: none;
+  outline: none;
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+input[type="submit"]:hover {
+  color: lightblue;
 }
