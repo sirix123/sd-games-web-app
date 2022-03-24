@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, Flask
 from blog import db
 from flask_sqlalchemy import SQLAlchemy
+from passlib.hash import sha256_crypt
 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(256),  nullable=False)
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -42,11 +43,12 @@ def retrieve_entry(article_id_get):
         return article
 
 def check_users(username,password_candidate):
-    admin_login = User.query.filter_by(username = username).first() and User.query.filter_by( password = password_candidate ).first()
-
-    if admin_login:
-        return True
-    else:
-        print("no username or password found")
-
-db.create_all()
+    
+    admin_login = User.query.filter_by(username = username).all()
+    for user in admin_login:
+        if( sha256_crypt.verify(password_candidate, user.password) ):
+            # print("logged in")
+            return True
+        else:
+            print("no username or password found")
+    
