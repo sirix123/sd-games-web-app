@@ -7,7 +7,7 @@ html {
 }
 
 .header-main{
-  padding:  15px;
+  padding:  3px;
   font-size: xx-large;
   font-weight: 700;
   background-color: #18889D
@@ -15,15 +15,15 @@ html {
 
 .context-box{
   margin: auto;
-  width: 50%;
+  width: 100%;
   padding: 10px;
   border-radius: 10px;
   color: rgb(255, 255, 255);
-  text-align: center; 
+  text-align: left; 
 }
 
 #menu-container{
-  padding:  15px;
+  padding:  3px;
 }
 
 ol,ul{
@@ -32,16 +32,20 @@ ol,ul{
 
 #menu{
   display: flex;
-  margin: 10px;
-  width: 500px;
+  margin: 3px;
+  width: 20%;
+  padding: 3px;
+}
+
+.logo{
+  height: 30px;
+  width: 30px;
+  padding-right: 5px;
 }
 
 #menu li{
-  display: block;
-  width: 120px;
-  float: left;
-  margin-left: 2px;
   border: 1px solid #000;
+  width: 20%;
 }
 
 #menu a{
@@ -50,6 +54,7 @@ ol,ul{
   text-decoration: none;
   background-color: #fff;
   color: #009;
+
 }
 
 #menu a:hover{
@@ -60,7 +65,7 @@ ol,ul{
 #main-container{
   display: flex;
   column-count: 2;
-  margin: 20px;
+  margin: 3px;
 }
 
 .entries{
@@ -85,12 +90,14 @@ ol,ul{
 .entry {
   overflow: auto;
   word-wrap: break-word;
+  padding: 5px;
 }
 
 .entry-title {
   font-size: 16px;
   overflow: auto;
   word-wrap: break-word;
+  padding: 5px;
 }
 
 .entry-date {
@@ -114,4 +121,44 @@ input[type="submit"] {
 }
 input[type="submit"]:hover {
   color: lightblue;
+}
+
+@media only screen and (max-width: 850px) {
+  html {
+    background-color: #18889D
+  }
+
+  #menu{
+    display: flex;
+    margin: 3px;
+    width: 100%;
+    padding: 3px;
+  }
+  
+  .logo{
+    height: 30px;
+    width: 30px;
+    padding-right: 5px;
+  }
+  
+  #menu li{
+    border: 1px solid #000;
+    width: 20%;
+  }
+  
+  #menu a{
+    display: block;
+    padding: 3px;
+    text-decoration: none;
+    background-color: #fff;
+    color: #009;
+  }
+
+  .entry-title {
+    font-size: 10px;
+    overflow: auto;
+    word-wrap: break-word;
+    padding: 3px;
+    padding-bottom: 8px;
+  }
 }
