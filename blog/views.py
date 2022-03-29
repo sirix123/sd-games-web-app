@@ -30,6 +30,7 @@ def login():
         password_candidate = request.form['password'] 
 
         if check_users(username,password_candidate):
+            print("logged in")
             session['logged_in'] = True
 
     return render_template("login.html")
