@@ -12,6 +12,3 @@ db = SQLAlchemy(app)
 
 from blog import views
 from blog import database
-
-if __name__ == "__main__":
-    app.run(debug=True)
