@@ -2,6 +2,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<div id="main-container-columns">
   <div class="entries">
     {% for entry in entries | reverse %}
     <div class="entry-title">
@@ -14,4 +15,5 @@
       {{ entry['content']|safe }}
     </div>
   </div>
+</div>
 {% endblock %}

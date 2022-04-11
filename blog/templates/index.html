@@ -1,4 +1,90 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+<div id="main-container">
+    <div class="flex-row-wrap">
+
+        <div class="product-card">
+            <div class="product-card-imageContainer">
+                <img class="product-card-image" src="static/img/trailer_tease.jpg">
+            </div>
+
+            <div class="prouct-card-bodyContainer">
+                <div class="product-card-productName">
+                    <div> Boss Battles </div>
+                </div>
+                <div class="product-card-productDescription">
+                    <div> 
+                        Dota2 mod - inspired by Wc3 mod Impossible Bosses
+                        <br>
+                        Out now - Playable on the Dota2 Arcade
+                    </div>
+                </div>
+
+                <div class="website-linkBtnContainer">
+                    <form action="https://bossbattles.co" class="website-linkBtn">
+                        <input type="submit" value="Website" style="text-decoration:none" class="website-linkBtn"/>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="product-card">
+            <div class="product-card-imageContainer">
+                <img class="product-card-image" src="static/img/BB_Webpage_Background_001.jpg">
+            </div>
+
+            <div class="prouct-card-bodyContainer">
+                <div class="product-card-productName">
+                    <div> Moodler </div>
+                </div>
+                <div class="product-card-productDescription">
+                    <div>
+                        Under development. Release in first half of 2022.  
+                        <br>
+                        Word guessing game inspired by Wordle.
+                    </div>
+                </div>
+
+                <div class="website-linkBtnContainer">
+                    <form action="https://bossbattles.co" class="website-linkBtn-disabled" >
+                        <input type="submit" value="" disabled/>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="product-card">
+            <div class="product-card-imageContainer">
+                <img class="product-card-image" src="static/img/BB_Webpage_Background_001.jpg">
+            </div>
+
+            <div class="prouct-card-bodyContainer">
+                <div class="product-card-productName">
+                    <div> Project Shrine </div>
+                </div>
+                <div class="product-card-productDescription">
+                    <div> 
+                        Under development. Release sometime in 2022.
+                        <br>
+                        2D Unity game - roguelike + autobattler
+                    </div>
+                </div>
+
+                <div class="website-linkBtnContainer">
+                    <form action="https://bossbattles.co" class="website-linkBtn-disabled">
+                        <input type="submit" value="" disabled/>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
 {% endblock %}
